@@ -1,0 +1,12 @@
+--movies by revenue--
+SELECT 
+       f.title, f.rating, c.name AS category,
+       SUM(p.amount) AS "Total Amount Paid"
+FROM payment p
+INNER JOIN rental r ON r.rental_id = p.rental_id
+INNER JOIN inventory i ON r.inventory_id = i.inventory_id
+INNER JOIN film f ON i.film_ID = f.film_ID
+INNER JOIN film_category fc ON f.film_ID = fc.film_ID
+INNER JOIN category c ON fc.category_id = c.category_id
+GROUP BY title, rating, category
+ORDER BY "Total Amount Paid" DESC
